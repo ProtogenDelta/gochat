@@ -1,0 +1,48 @@
+syntax = "proto3";
+package gochat;
+
+message C2SMessage {
+  message ChatMessage {
+    string channel = 1;
+    string content = 2;
+    bool is_action = 3;
+  }
+
+  message Ident {
+    string name = 1;
+  }
+
+  oneof content {
+    ChatMessage chat_message = 2;
+    Ident ident = 1;
+  }
+}
+
+message S2CMessage {
+  message ChatMessage {
+    string name = 1;
+    string channel = 2;
+    string content = 3;
+    bool is_action = 4;
+  }
+
+  message Join {
+    string name = 1;
+  }
+
+  message Part {
+    string name = 1;
+  }
+
+  message NickChange {
+    string from = 1;
+    string to = 2;
+  }
+
+  oneof content {
+    ChatMessage chat_message = 1;
+    Join join = 2;
+    Part part = 3;
+    NickChange nick_change = 4;
+  }
+}
