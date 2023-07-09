@@ -21,9 +21,9 @@ func color(s, color string) string {
 // ----- Message formatters -----
 func (m userMsg) Draw() string {
 	if m.IsAction {
-		return color(fmt.Sprintf("* %s %s", color(m.User, "4"), m.Content), "8")
+		return color(fmt.Sprintf("* %s %s", color(m.User, UserColor), m.Content), SystemColor)
 	} else {
-		return fmt.Sprintf("%s %s", color(fmt.Sprintf("%s:", m.User), "4"), m.Content)
+		return fmt.Sprintf("%s %s", color(fmt.Sprintf("%s:", m.User), UserColor), m.Content)
 	}
 }
 
