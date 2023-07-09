@@ -83,13 +83,22 @@ func initialModel(nick string) model {
 	ta.KeyMap.InsertNewline.SetEnabled(false)
 
 	return model{
-		channel:  "general",
-		nick:     nick,
-		channels: make(channelMap),
+		channel: "general",
+		nick:    nick,
+		channels: channelMap{
+			"general": make([]message, 0),
+		},
 		viewport: vp,
 		textarea: ta,
 		err:      nil,
 	}
+}
+
+func addMsgAll(m *model, msg message) {
+	for channel := range m.channels {
+		m.channels.AddMsg(channel, msg)
+	}
+	redraw(m)
 }
 
 func addMsg(m *model, channel string, msg message) {
@@ -119,7 +128,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case userMsg:
 		addMsg(&m, msg.Channel, msg)
 	case userJoinMsg, userPartMsg, userNickMsg:
-		addMsg(&m, m.channel, msg.(message))
+		addMsgAll(&m, msg.(message))
 	case tea.WindowSizeMsg:
 		m.textarea.SetWidth(msg.Width - 2)
 		m.viewport.Width = msg.Width - 2
@@ -158,8 +167,14 @@ func (m model) HandleCommand(content string) (tea.Model, tea.Cmd) {
 			})
 			break
 		}
+		if len(m.channels[m.channel]) == 0 {
+			delete(m.channels, m.channel)
+		}
 		m.channel = words[1]
 		m.textarea.Placeholder = fmt.Sprintf("Message #%s...", m.channel)
+		if _, ok := m.channels[m.channel]; !ok {
+			m.channels[m.channel] = make([]message, 0)
+		}
 		redraw(&m)
 	case "/clear":
 		m.channels.Clear(m.channel)
