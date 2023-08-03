@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	gochat "github.com/protogendelta/gochat/lib"
+	gochat "github.com/protogendelta/gochat/lib/gochat/v1"
 
 	"github.com/charmbracelet/bubbles/textarea"
 	"github.com/charmbracelet/bubbles/viewport"

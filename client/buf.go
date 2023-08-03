@@ -1,7 +1,7 @@
 package main
 
 import (
-	gochat "github.com/protogendelta/gochat/lib"
+	gochat "github.com/protogendelta/gochat/lib/gochat/v1"
 )
 
 func makeIdent(name string) *gochat.C2SMessage {

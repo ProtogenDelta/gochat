@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	gochat "github.com/protogendelta/gochat/lib"
+	gochat "github.com/protogendelta/gochat/lib/gochat/v1"
 )
 
 type connection struct {

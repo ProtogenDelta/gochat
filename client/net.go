@@ -5,7 +5,7 @@ import (
 	"net"
 
 	tea "github.com/charmbracelet/bubbletea"
-	gochat "github.com/protogendelta/gochat/lib"
+	gochat "github.com/protogendelta/gochat/lib/gochat/v1"
 	"google.golang.org/protobuf/proto"
 )
 
